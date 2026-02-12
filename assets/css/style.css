@@ -46,6 +46,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*--------------------------------------------------------------
+# Utilities
+--------------------------------------------------------------*/
+.icon-box-light {
+  background: #fff;
+}
+
+/*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
 #header {
@@ -734,6 +741,84 @@ section .container {
 }
 
 /*--------------------------------------------------------------
+# Section Overrides
+--------------------------------------------------------------*/
+#experience .icon-box,
+#training .icon-box,
+#publication .icon-box,
+#skills .icon-box {
+  text-align: left;
+}
+
+#experience .icon-box h4,
+#experience .icon-box h4 a,
+#training .icon-box h4,
+#publication .icon-box h4,
+#publication .icon-box h4 a {
+  color: #12d640;
+}
+
+#experience .icon-box h5,
+#experience .icon-box h6,
+#experience .icon-box p,
+#experience .icon-box ul,
+#training .icon-box h5,
+#training .icon-box h6,
+#training .icon-box p,
+#training .icon-box ul,
+#publication .icon-box h5,
+#publication .icon-box h6,
+#publication .icon-box p {
+  color: #fff;
+}
+
+#experience .icon-box h4 a {
+  color: #12d640;
+}
+
+#training .icon-box h5 a {
+  color: #fff;
+}
+
+#publication .doi-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+#publication .doi-link:hover {
+  color: #12d640;
+}
+
+#education .icon-box p,
+#education .icon-box h5,
+#education .icon-box h6,
+#education .icon-box ul {
+  text-align: left;
+  color: #fff;
+}
+
+#education .icon-box p {
+  padding: 5px 10px;
+}
+
+#education .icon-box h5,
+#education .icon-box h6 {
+  padding: 0 10px;
+}
+
+#education .icon-box ul {
+  padding-left: 20px;
+}
+
+#skills .icon-box h4 {
+  color: #09203a;
+}
+
+#skills .icon-box p {
+  text-align: left;
+}
+
+/*--------------------------------------------------------------
 # Portfolio
 --------------------------------------------------------------*/
 .portfolio .portfolio-item {
@@ -1100,16 +1185,12 @@ section .container {
   }
 }
 
-#education {
-  .col-lg-4 {
-    max-width: 31% !important;
-  }
-
-  /* Adjust max-width for smaller screens */
-  @media (max-width: 991.98px) {
-    .col-lg-4 {
-      max-width: 100% !important; /* Adjust to fit full width on smaller screens */
-    }
-  }
+#education .col-lg-4 {
+  max-width: 31% !important;
 }
+
+@media (max-width: 991.98px) {
+  #education .col-lg-4 {
+    max-width: 100% !important;
+  }
 }
