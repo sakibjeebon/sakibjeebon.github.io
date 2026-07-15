@@ -132,8 +132,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- impact ---------- */
 .impact-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; margin-bottom: 2.5rem; }
-.chart-card, .spark-card { background: var(--panel); border: 1px solid var(--line); padding: 1.5rem; }
-.chart-card figcaption, .spark-card figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.4rem; }
+.chart-card { background: var(--panel); border: 1px solid var(--line); padding: 1.5rem; }
+.chart-card figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.4rem; }
 .chart-title { font-family: var(--mono); font-size: .8rem; text-transform: uppercase; letter-spacing: .12em; }
 .chart-sub { font-family: var(--mono); font-size: .72rem; color: var(--muted); }
 .bars { width: 100%; height: auto; }
@@ -167,20 +167,25 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   border: 1px solid var(--line); padding: .18rem .55rem; background: var(--panel-2);
 }
 
-/* ---------- experience ---------- */
-.spark-card { margin-bottom: 2.5rem; }
-.spark { width: 100%; height: auto; }
-.spark-axis { stroke: var(--line); stroke-width: 1; }
-.spark-line {
-  fill: none; stroke: var(--accent); stroke-width: 2;
-  transition: stroke-dashoffset 1.6s ease-out;
+/* ---------- experience: career timeline ---------- */
+.tl-card { background: var(--panel); border: 1px solid var(--line); padding: 1.5rem; margin-bottom: 2.5rem; }
+.tl-card figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.4rem; }
+.tl { width: 100%; height: auto; }
+.tl-ticks line { stroke: var(--line-soft); stroke-width: 1; }
+.tl-ticks text { font-family: var(--mono); font-size: 11px; fill: var(--muted); text-anchor: middle; }
+.tl-seg {
+  fill: var(--accent);
+  transform-box: fill-box; transform-origin: left center;
+  transition: transform .8s cubic-bezier(.22,.9,.35,1);
 }
-.js .spark-line { stroke-dasharray: 700; stroke-dashoffset: 700; }
-.js .in-view .spark-line { stroke-dashoffset: 0; }
-.spark-dots circle { fill: var(--accent); transition: opacity .3s ease 1.2s; }
-.js .spark-dots circle { opacity: 0; }
-.js .in-view .spark-dots circle { opacity: 1; }
-.spark-note { font-family: var(--mono); font-size: 12px; fill: var(--muted); }
+.tl-seg-alt { fill: none; stroke: var(--muted); stroke-width: 1; }
+.js .tl-seg { transform: scaleX(0); }
+.js .in-view .tl-seg { transform: scaleX(1); }
+.tl-now { fill: var(--accent); }
+.tl-label { font-family: var(--mono); font-size: 11px; fill: var(--text); text-anchor: middle; letter-spacing: .04em; }
+.tl-label-dim { fill: var(--muted); }
+@keyframes tl-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+.tl-now { animation: tl-pulse 2s ease-in-out infinite; }
 
 .timeline { list-style: none; padding: 0; display: grid; gap: 0; }
 .timeline > li {
@@ -269,5 +274,6 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .cursor-block { animation: none; }
-  .bar-fill, .spark-line, .spark-dots circle { transition: none; }
+  .tl-now { animation: none; }
+  .bar-fill, .tl-seg { transition: none; }
 }

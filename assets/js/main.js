@@ -36,7 +36,7 @@
   }, { threshold: 0.35 });
 
   document.querySelectorAll(".count").forEach(function (el) { io.observe(el); });
-  document.querySelectorAll(".chart-card, .spark-card").forEach(function (el) { io.observe(el); });
+  document.querySelectorAll(".chart-card, .tl-card").forEach(function (el) { io.observe(el); });
 
   /* ---------- scroll-spy nav ---------- */
   var navLinks = document.querySelectorAll(".nav-links a");
