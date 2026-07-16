@@ -20,7 +20,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
-html { scroll-behavior: smooth; }
+/* no smooth scroll: on a page this tall it makes nav jumps crawl for seconds */
 body {
   background: var(--bg);
   color: var(--text);
@@ -78,6 +78,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.05;
   letter-spacing: -.02em; margin-bottom: 1.25rem;
 }
+.given { color: var(--accent); }   /* the name he actually goes by */
 .hero-role { max-width: 34rem; color: var(--muted); margin-bottom: 1.5rem; }
 .typer-line {
   font-family: var(--mono); font-size: .95rem; color: var(--accent);
@@ -216,7 +217,16 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .card p { font-size: .92rem; color: var(--muted); }
 .card p + p { margin-top: .5rem; }
 .mono-kv { font-family: var(--mono); font-size: .8rem; }
-.edu-logo, .cred-logo { height: 52px; width: auto; margin-bottom: 1rem; background: #fff; padding: 4px; }
+/* logos are transparent monochrome knockouts of the full lockup — no white
+   plate. Sized so the baked-in institution name stays legible (>=12px), which
+   is what drives these dimensions rather than any uniform icon size. */
+.edu-logo { height: 60px; width: auto; margin-bottom: 1rem; }
+.cred-logo { height: auto; max-width: 100%; }
+.edu-logo, .cred-logo { opacity: .8; transition: opacity .15s; }
+.card:hover .edu-logo, .card:hover .cred-logo { opacity: 1; }
+/* the two credential lockups differ a lot in height; a fixed slot keeps both
+   cards' body text starting on the same baseline */
+.logo-slot { min-height: 120px; display: flex; align-items: center; margin-bottom: 1rem; }
 
 /* ---------- credential lists ---------- */
 .featured-creds { margin-bottom: 2.5rem; }
@@ -272,7 +282,6 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   .cursor-block { animation: none; }
   .tl-now { animation: none; }
   .bar-fill, .tl-seg { transition: none; }

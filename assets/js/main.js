@@ -38,26 +38,40 @@
   document.querySelectorAll(".count").forEach(function (el) { io.observe(el); });
   document.querySelectorAll(".chart-card, .tl-card").forEach(function (el) { io.observe(el); });
 
-  /* ---------- scroll-spy nav ---------- */
-  var navLinks = document.querySelectorAll(".nav-links a");
-  var linkFor = new WeakMap();
-  var spy = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      var link = linkFor.get(entry.target);
-      if (link && entry.isIntersecting) {
-        navLinks.forEach(function (a) { a.classList.remove("active"); });
-        link.classList.add("active");
-      }
-    });
-  }, { rootMargin: "-20% 0px -70% 0px" });
-  navLinks.forEach(function (a) {
+  /* ---------- scroll-spy nav ----------
+     Position-based rather than IntersectionObserver: the active section is
+     simply the last one whose top has crossed a line just below the sticky nav.
+     This is symmetric (scrolling up behaves like scrolling down) and immune to
+     short trailing sections that can never reach a mid-viewport trigger band. */
+  var nav = document.querySelector(".nav");
+  var navLinks = [].slice.call(document.querySelectorAll(".nav-links a"));
+  var targets = navLinks.map(function (a) {
     var el = document.getElementById(a.getAttribute("href").slice(1));
-    if (!el) return;
     // a nav target may be the section itself or an alias span inside it
-    if (el.classList.contains("anchor-alias")) el = el.parentElement;
-    linkFor.set(el, a);
-    spy.observe(el);
-  });
+    if (el && el.classList.contains("anchor-alias")) el = el.parentElement;
+    return el ? { link: a, el: el } : null;
+  }).filter(Boolean);
+
+  var spyQueued = false;
+  function updateSpy() {
+    spyQueued = false;
+    var line = window.scrollY + (nav ? nav.offsetHeight : 0) + 48;
+    var active = null;
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+      active = targets[targets.length - 1];       // bottom of page: last section wins
+    } else {
+      for (var i = 0; i < targets.length; i++) {
+        if (targets[i].el.getBoundingClientRect().top + window.scrollY <= line) active = targets[i];
+      }
+    }
+    navLinks.forEach(function (a) { a.classList.toggle("active", !!active && a === active.link); });
+  }
+  function queueSpy() {
+    if (!spyQueued) { spyQueued = true; requestAnimationFrame(updateSpy); }
+  }
+  window.addEventListener("scroll", queueSpy, { passive: true });
+  window.addEventListener("resize", queueSpy);
+  updateSpy();
 
   /* ---------- terminal typer ---------- */
   var typer = document.getElementById("typer");
