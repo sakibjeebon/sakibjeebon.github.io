@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-18T18:11:23.335Z",
+        "reason": "Claude's call: static scan of full-bleed chapters whose inset comes from .wrap padding in CSS; rendered detect on localhost reports 0 anti-patterns"
+      }
+    ]
+  }
+}
