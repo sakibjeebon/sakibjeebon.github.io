@@ -455,3 +455,4 @@ strong, b { font-weight: 500; }
   .lanes-legend { font-size: .8125rem; margin-top: 1rem; gap: .5rem; }
   .lanes-note { font-size: .8125rem; margin-top: .75rem; }
 }
+.wall a[href="#c-nebosh"] .w-logo { height: 5.5rem; }
