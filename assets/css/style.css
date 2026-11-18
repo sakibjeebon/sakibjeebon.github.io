@@ -371,3 +371,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   .wall-tile { min-height: 12rem; }
   .wall-tile .w-mark { font-size: 1.25rem; white-space: nowrap; }
 }
+
+/* education: two cards per row; IBA logo is a dark mark, inverted for the dark theme */
+.cards-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.edu-logo-inv { filter: invert(1); }
+@media (max-width: 700px) { .cards-2 { grid-template-columns: 1fr; } }
