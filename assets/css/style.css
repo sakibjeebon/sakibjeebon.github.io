@@ -405,3 +405,4 @@ strong, b { font-weight: 500; }
 
 .chapter.contact { min-height: 0; padding-block: clamp(3rem, 2rem + 4vw, 5rem); }
 .wall a:first-child .w-logo { height: 4.25rem; }
+.wall a.t-black .w-logo { filter: invert(1); }
