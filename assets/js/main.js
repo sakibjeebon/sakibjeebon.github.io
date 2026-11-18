@@ -122,7 +122,8 @@
   var canvas = document.getElementById("datagrid");
   if (canvas) {
     var ctx = canvas.getContext("2d");
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var gridLayer = document.createElement("canvas");
     var W = 0, H = 0, CELL = 72;
     var packets = [];
     var running = false, rafId = 0;
@@ -132,16 +133,27 @@
       W = rect.width; H = rect.height;
       canvas.width = W * dpr; canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      renderGrid();
       drawGrid();
     }
 
-    function drawGrid() {
-      ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = "rgba(52, 211, 153, 0.13)";
+    /* the dot grid never changes: paint it once into a layer and blit it each frame */
+    function renderGrid() {
+      gridLayer.width = canvas.width; gridLayer.height = canvas.height;
+      var g = gridLayer.getContext("2d");
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.fillStyle = "rgba(52, 211, 153, 0.13)";
+      g.beginPath();
       for (var x = CELL; x < W; x += CELL)
-        for (var y = CELL; y < H; y += CELL) {
-          ctx.beginPath(); ctx.arc(x, y, 1.2, 0, 6.2832); ctx.fill();
-        }
+        for (var y = CELL; y < H; y += CELL) { g.moveTo(x + 1.2, y); g.arc(x, y, 1.2, 0, 6.2832); }
+      g.fill();
+    }
+
+    function drawGrid() {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(gridLayer, 0, 0);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     function spawn() {

@@ -2,7 +2,7 @@
 // (between the <!-- posts:start --> and <!-- posts:end --> markers in index.html)
 // from scripts/posts.mjs. Terminal-style pages that share the portfolio's nav, footer and script.
 // Usage: node scripts/build-writing.mjs
-import { writeFileSync, readFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, readFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { posts } from "./posts.mjs";
@@ -12,6 +12,15 @@ const out = join(root, "writing");
 mkdirSync(out, { recursive: true });
 
 const site = "https://sakibjeebon.github.io";
+const csp = readFileSync(join(root, "scripts/csp.txt"), "utf8").trim();
+// responsive webp variants sit next to the jpg: <slug>-480.webp plus one wider file when the source allows
+const webp = (img, prefix) => {
+  const s = img.replace(/\.jpg$/, "");
+  const dir = join(root, "assets/img/writing");
+  const base = prefix + "assets/img/writing/" + s;
+  const extra = [960, ...Array.from({ length: 480 }, (_, i) => 959 - i)].find((w) => existsSync(join(dir, `${s}-${w}.webp`)));
+  return { src: `${base}-480.webp`, srcset: `${base}-480.webp 480w${extra ? `, ${base}-${extra}.webp ${extra}w` : ""}` };
+};
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const fmt = (p) => p.dateLabel || new Date(p.date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 const short = (p) => p.dateLabel || new Date(p.date + "T00:00:00Z").toLocaleDateString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" }).toLowerCase();
@@ -20,6 +29,8 @@ const head = (title, desc, path, image) => `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="${csp}">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}">
@@ -77,12 +88,12 @@ posts.forEach((p, i) => {
   <article class="post">
     <p class="kicker">// writing &middot; <time datetime="${p.date}">${fmt(p)}</time> &middot; first posted on linkedin</p>
     <h1>${esc(p.title)}</h1>
-    <figure class="post-fig"><img src="../assets/img/writing/${p.image}" alt="${esc(p.alt)}"></figure>
+    <figure class="post-fig"><img src="${webp(p.image, "../").src}" srcset="${webp(p.image, "../").srcset}" sizes="(max-width: 46rem) 100vw, 46rem" alt="${esc(p.alt)}" width="${p.w || 1024}" height="${p.h || 1024}" fetchpriority="high" decoding="async"></figure>
     <div class="post-body">
       ${p.body.map(block).join("\n      ")}
     </div>
     <p class="post-actions">
-      <a class="btn btn-solid" href="${p.url}" target="_blank" rel="noopener">read on linkedin ↗</a>
+      <a class="btn btn-solid" href="${p.url}" target="_blank" rel="noopener noreferrer">read on linkedin ↗</a>
       <a class="btn" href="./">all writing</a>
     </p>
     <nav class="post-nav" aria-label="More writing">
@@ -110,7 +121,7 @@ writeFileSync(join(out, "index.html"), index);
 
 // home page cards
 const cards = posts.map((p) => `        <a class="post-card" href="writing/${p.slug}.html">
-          <img src="assets/img/writing/${p.image}" alt="" width="400" height="250" loading="lazy">
+          <img src="${webp(p.image, "").src}" srcset="${webp(p.image, "").srcset}" sizes="(max-width: 700px) 100vw, 360px" alt="" width="400" height="250" loading="lazy" decoding="async">
           <div class="post-card-body">
             <p class="card-tag">${short(p)}</p>
             <h3>${esc(p.title)}</h3>

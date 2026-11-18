@@ -28,12 +28,15 @@ body {
   font-size: 1.0625rem;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  /* faint blueprint grid */
+}
+/* faint blueprint grid: a fixed layer of its own, so scrolling never repaints it
+   (background-attachment: fixed forces a full repaint on every scroll frame) */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background-image:
     linear-gradient(var(--line-soft) 1px, transparent 1px),
     linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
   background-size: 72px 72px;
-  background-attachment: fixed;
 }
 img, svg { display: block; max-width: 100%; }
 a { color: var(--accent); text-decoration: none; }
@@ -48,8 +51,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* ---------- nav ---------- */
 .nav {
   position: sticky; top: 0; z-index: 10;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
   border-bottom: 1px solid var(--line);
 }
 .nav nav {
