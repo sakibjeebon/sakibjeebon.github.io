@@ -36,7 +36,15 @@
   }, { threshold: 0.35 });
 
   document.querySelectorAll(".count").forEach(function (el) { io.observe(el); });
-  document.querySelectorAll(".chart-card, .tl-card").forEach(function (el) { io.observe(el); });
+  var cards = [].slice.call(document.querySelectorAll(".tl-card"));
+  cards.forEach(function (el) { io.observe(el); });
+  // position-based fallback: reveal anything at or above the lower part of the viewport,
+  // so a jump to an anchor never leaves the graph collapsed
+  function revealCards() {
+    cards.forEach(function (el) {
+      if (!el.classList.contains("in-view") && el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add("in-view");
+    });
+  }
 
   /* ---------- scroll-spy nav ----------
      Position-based rather than IntersectionObserver: the active section is
@@ -46,7 +54,9 @@
   var nav = document.querySelector(".nav");
   var navLinks = [].slice.call(document.querySelectorAll(".nav-links a"));
   var targets = navLinks.map(function (a) {
-    var el = document.getElementById(a.getAttribute("href").slice(1));
+    var href = a.getAttribute("href");
+    if (href.charAt(0) !== "#") return null;      // links to other pages are not scroll-spied
+    var el = document.getElementById(href.slice(1));
     // a nav target may be the section itself or an alias span inside it
     if (el && el.classList.contains("anchor-alias")) el = el.parentElement;
     return el ? { link: a, el: el } : null;
@@ -55,9 +65,12 @@
   var spyQueued = false;
   function updateSpy() {
     spyQueued = false;
+    revealCards();
     var line = window.scrollY + (nav ? nav.offsetHeight : 0) + 48;
     var active = null;
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+    if (!targets.length) {
+      active = null;
+    } else if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
       active = targets[targets.length - 1];       // bottom of page: last section wins
     } else {
       for (var i = 0; i < targets.length; i++) {
@@ -80,7 +93,8 @@
       "scaling SBTi targets across 25 factories",
       "auditing energy systems in 80+ plants",
       "shipping ESG reporting for GRI / CSRD / CSDDD",
-      "training 200+ sustainability professionals"
+      "onboarding 90+ businesses to RTIS",
+      "training 400+ sustainability professionals"
     ];
     var li = 0, ci = lines[0].length, deleting = true;
     (function tick() {
@@ -190,6 +204,29 @@
         document.hidden ? stop() : start();
       });
     }
+  }
+
+  /* ---------- career lanes: highlight a role, flash its entry ---------- */
+  var lanes = document.getElementById("lanes");
+  if (lanes) {
+    var segs = [].slice.call(lanes.querySelectorAll(".seg"));
+    var hot = function (seg) {
+      lanes.classList.add("dim");
+      segs.forEach(function (s) { s.classList.toggle("hot", s.getAttribute("href") === seg.getAttribute("href")); });
+    };
+    var cool = function () { lanes.classList.remove("dim"); segs.forEach(function (s) { s.classList.remove("hot"); }); };
+    segs.forEach(function (s) {
+      s.addEventListener("mouseenter", function () { hot(s); });
+      s.addEventListener("focus", function () { hot(s); });
+      s.addEventListener("mouseleave", cool);
+      s.addEventListener("blur", cool);
+      s.addEventListener("click", function () {
+        var t = document.querySelector(s.getAttribute("href"));
+        if (!t || t.id.indexOf("role-") !== 0) return;
+        t.classList.remove("flash"); void t.offsetWidth; t.classList.add("flash");
+        setTimeout(function () { t.classList.remove("flash"); }, 1600);
+      });
+    });
   }
 
   /* ---------- footer year ---------- */
