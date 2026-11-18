@@ -11,7 +11,6 @@ const out = join(root, "writing");
 mkdirSync(out, { recursive: true });
 
 const site = "https://sakibjeebon.github.io";
-const logoD = readFileSync(join(root, "scripts/logo-path.txt"), "utf8").trim();
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const fmt = (p) => p.dateLabel || new Date(p.date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 const arrow = `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M5 12h14m0 0-6-6m6 6-6 6"/></svg>`;
@@ -46,7 +45,7 @@ const head = (title, desc, path, image, type = "article") => `<!DOCTYPE html>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head" id="head">
   <a class="brand" href="../" aria-label="Sakib Hasan Jeebon, home">
-    <svg viewBox="-3 -3 76 66" aria-hidden="true"><path class="logo-line" pathLength="1" d="${logoD}"/></svg>
+    <svg viewBox="0 2 64 40" aria-hidden="true"><path class="logo-line" pathLength="1" d="M20 10H10a6 6 0 0 0 0 12h4a6 6 0 0 1 0 12H4"/><path class="logo-line" pathLength="1" d="M27 8v28M41 8v28M27 22h14"/><path class="logo-line" pathLength="1" d="M48 10h12v18a6 6 0 0 1-12 0"/></svg>
     <span class="brand-name">Sakib Hasan Jeebon</span>
   </a>
   <ul class="nav-links">
@@ -61,7 +60,7 @@ const head = (title, desc, path, image, type = "article") => `<!DOCTYPE html>
 
 const foot = `<footer class="foot">
   <div class="foot-cols">
-    <ul><li>Sakib Hasan Jeebon</li><li>Head of Client Relations and Training</li><li>IRI and ERI, Dhaka</li></ul>
+    <ul><li>Sakib Hasan Jeebon</li><li>Sustainability and decarbonization</li></ul>
     <ul><li>Read</li><li><a href="../#about">About</a></li><li><a href="../#experience">Experience</a></li><li><a href="./">Writing</a></li></ul>
     <ul><li>More</li><li><a href="../#education">Education</a></li><li><a href="../#research">Research</a></li><li><a href="../#credentials">Credentials</a></li></ul>
     <ul><li>Elsewhere</li><li><a href="https://www.linkedin.com/in/sakibjeebon" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="mailto:sakibjeebon@gmail.com">Email</a></li><li><a href="../">Back to the portfolio</a></li></ul>
@@ -101,9 +100,7 @@ posts.forEach((p, i) => {
       <div class="post-body">
         ${p.body.map(block).join("\n        ")}
       </div>
-      <aside class="post-aside rise" aria-label="About the author">
-        <div class="byline-photo"><img src="../assets/img/sakib-cutout.png" width="291" height="440" alt="Sakib Hasan Jeebon" loading="lazy"></div>
-        <p class="who">Sakib Hasan Jeebon<br><span style="font-weight:400">Head of Client Relations and Training, IRI and ERI</span></p>
+      <aside class="post-rail" aria-label="About this post">
         <p class="post-actions">
           <a class="btn" href="${p.url}" target="_blank" rel="noopener">Read on LinkedIn ${ext}</a>
           <a class="btn btn-quiet" href="./">All writing</a>
