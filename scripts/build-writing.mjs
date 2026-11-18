@@ -57,11 +57,12 @@ const head = (title, desc, path, image, type = "article") => `<!DOCTYPE html>
     <svg viewBox="0 2 64 40" aria-hidden="true"><path class="logo-line" pathLength="1" d="M20 10H10a6 6 0 0 0 0 12h4a6 6 0 0 1 0 12H4"/><path class="logo-line" pathLength="1" d="M27 8v28M41 8v28M27 22h14"/><path class="logo-line" pathLength="1" d="M48 10h12v18a6 6 0 0 1-12 0"/></svg>
     <span class="brand-name">Sakib Hasan Jeebon</span>
   </a>
-  <ul class="nav-links">
-    <li class="wide"><a href="../#about">About</a></li>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="../#about">About</a></li>
     <li><a href="../#experience">Work</a></li>
     <li><a href="./">Writing</a></li>
-    <li class="wide"><a href="../#credentials">Credentials</a></li>
+    <li><a href="../#credentials">Credentials</a></li>
     <li><a href="../#contact">Contact</a></li>
   </ul>
 </header>

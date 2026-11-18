@@ -131,6 +131,21 @@
     });
   }
 
+  /* ---------- phone menu ---------- */
+  var toggle = document.querySelector(".nav-toggle"), menu = document.getElementById("nav-links");
+  if (toggle && menu) {
+    var setMenu = function (open) {
+      menu.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.textContent = open ? "Close" : "Menu";
+    };
+    toggle.addEventListener("click", function () { setMenu(!menu.classList.contains("open")); });
+    menu.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
+    document.addEventListener("click", function (e) { if (!menu.contains(e.target) && !toggle.contains(e.target)) setMenu(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
+    window.matchMedia("(min-width: 641px)").addEventListener("change", function (e) { if (e.matches) setMenu(false); });
+  }
+
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 })();
