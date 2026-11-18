@@ -12,7 +12,7 @@ export const posts = [
     date: "2026-03-28",
     fig: "৳16 cr",
     excerpt: "Every prompt to a foreign model is an import. The bill, and the case for serving our own demand locally.",
-    image: "ai-token-import.jpg",
+    image: "ai-token-import.jpg", w: 1024, h: 1024,
     alt: "Infographic: ৳16 crore a year outflow for 200,000 AI users in Bangladesh, versus building local AI infrastructure.",
     url: li("7443650681405800448"),
     body: [
@@ -50,7 +50,7 @@ export const posts = [
     date: "2026-03-25",
     fig: "281k t",
     excerpt: "We track factory emissions to the gram. Military emissions barely get measured at all.",
-    image: "measuring-the-right-emissions.jpg",
+    image: "measuring-the-right-emissions.jpg", w: 1024, h: 1024,
     alt: "Graphic: factory emissions measured to the gram, military emissions barely measured; 281,000 tons CO₂ in one month.",
     url: li("7442563486481801216"),
     body: [
@@ -74,7 +74,7 @@ export const posts = [
     date: "2026-02-25",
     fig: "÷400",
     excerpt: "Leap years every four years is only part of the rule. The extra condition keeps the seasons in place.",
-    image: "leap-year-rule.jpg",
+    image: "leap-year-rule.jpg", w: 800, h: 1200,
     alt: "Illustration: 1900 not a leap year, 2000 a leap year, with Earth's orbit.",
     url: li("7432409130985979904"),
     body: [
@@ -95,7 +95,7 @@ export const posts = [
     date: "2026-02-17",
     fig: "6 GW",
     excerpt: "Where does 6 GW of compute power come from, and what does it cost in land?",
-    image: "ai-vs-food.jpg",
+    image: "ai-vs-food.jpg", w: 800, h: 1200,
     alt: "Infographic: Energy vs Food, the new dilemma of powering AI without sacrificing food production.",
     url: li("7429517540776665089"),
     body: [
@@ -120,7 +120,7 @@ export const posts = [
     date: "2025-10-26",
     fig: "580",
     excerpt: "580 trees to offset a lifetime. A heartwarming idea, and a closer look at the numbers.",
-    image: "carbon-neutral-baby.jpg",
+    image: "carbon-neutral-baby.jpg", w: 1200, h: 1200,
     alt: "Infographic: how to calculate a carbon-neutral lifetime for a baby, offset by 580 trees.",
     url: li("7388197771532656640"),
     body: [
@@ -146,7 +146,7 @@ export const posts = [
     date: "2025-10-19",
     fig: "20%",
     excerpt: "Private merchant power plants can now sell clean electricity directly. What the 2025 policy changes.",
-    image: "bangladesh-renewable-market.jpg",
+    image: "bangladesh-renewable-market.jpg", w: 1200, h: 1200,
     alt: "Graphic: Bangladesh unlocks private renewable power, with wind turbines and solar panels.",
     url: li("7385661023657189376"),
     body: [
@@ -168,7 +168,7 @@ export const posts = [
     date: "2025-06-11",
     fig: "1.5°C",
     excerpt: "The 2025 Fossil Free Fashion Scorecard, read from inside the industry's supply chain.",
-    image: "fossil-free-fashion-scorecard.jpg",
+    image: "fossil-free-fashion-scorecard.jpg", w: 1200, h: 1200,
     alt: "Chart: fashion brands plotted by renewable energy and emissions target alignment with 1.5°C.",
     url: li("7338497740550639616"),
     body: [
@@ -186,7 +186,7 @@ export const posts = [
     date: "2024-12-28",
     fig: "T",
     excerpt: "A T-shaped object, a maze, and a lesson in collective intelligence.",
-    image: "ants-vs-humans.jpg",
+    image: "ants-vs-humans.jpg", w: 485, h: 670,
     alt: "Experiment photos: a group of humans and a group of ants each moving a T-shaped object through a maze.",
     url: li("7278681081493528576"),
     body: [
@@ -206,7 +206,7 @@ export const posts = [
     date: "2024-12-15",
     fig: "γ",
     excerpt: "Small forces, visible impact: why a wasp's legs cast flower-shaped shadows.",
-    image: "surface-tension.jpg",
+    image: "surface-tension.jpg", w: 599, h: 899,
     alt: "A wasp standing on water, its legs casting rounded shadows on the pool floor.",
     url: li("7274015341926596610"),
     body: [
@@ -220,7 +220,7 @@ export const posts = [
     date: "2024-11-22",
     fig: "2×2",
     excerpt: "The prisoner's dilemma, Tit for Tat, and why most wins come from working with others.",
-    image: "game-theory.jpg",
+    image: "game-theory.jpg", w: 1200, h: 1200,
     alt: "Title card: What game theory teaches us. Life's not a zero-sum game.",
     url: li("7265718168910725120"),
     body: [
@@ -243,7 +243,7 @@ export const posts = [
     dateLabel: "2024",
     fig: "µg",
     excerpt: "Without gravity, a flame turns blue, round and cooler. Here's why.",
-    image: "candle-flame-in-space.jpg",
+    image: "candle-flame-in-space.jpg", w: 1041, h: 812,
     alt: "Two candle flames: a yellow teardrop flame in normal gravity and a blue spherical flame in microgravity.",
     url: feed,
     body: [
@@ -260,7 +260,7 @@ export const posts = [
     dateLabel: "2024",
     fig: "290 dB",
     excerpt: "If space carried sound, the Sun would roar louder than anything we could imagine.",
-    image: "sound-of-the-sun.jpg",
+    image: "sound-of-the-sun.jpg", w: 660, h: 433,
     alt: "The Sun's surface, glowing orange with flares.",
     url: feed,
     body: [

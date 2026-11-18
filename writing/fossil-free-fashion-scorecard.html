@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U='; style-src 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fashion's climate wake-up call · Sakib Hasan Jeebon</title>
   <meta name="description" content="The 2025 Fossil Free Fashion Scorecard, read from inside the industry's supply chain.">
@@ -16,9 +18,7 @@
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/style.css">
   <script>document.documentElement.classList.add("js")</script>
   <script defer src="../assets/js/main.js"></script>
@@ -46,7 +46,7 @@
         <h1 id="post-h" class="rise">Fashion's climate wake-up call</h1>
         <p class="post-meta rise" style="--i:1"><time datetime="2025-06-11">11 June 2025</time><span>First posted on LinkedIn</span></p>
       </div>
-      <figure class="post-figure rise" style="--i:2"><img src="../assets/img/writing/fossil-free-fashion-scorecard.jpg" alt="Chart: fashion brands plotted by renewable energy and emissions target alignment with 1.5°C."></figure>
+      <figure class="post-figure rise" style="--i:2"><img src="../assets/img/writing/fossil-free-fashion-scorecard-480.webp" srcset="../assets/img/writing/fossil-free-fashion-scorecard-480.webp 480w, ../assets/img/writing/fossil-free-fashion-scorecard-960.webp 960w" sizes="(max-width: 900px) 100vw, 42vw" alt="Chart: fashion brands plotted by renewable energy and emissions target alignment with 1.5°C." width="1200" height="1200" fetchpriority="high" decoding="async"></figure>
     </div>
   </section>
   <article class="chapter c-white post-body-wrap">
@@ -61,15 +61,15 @@
       </div>
       <aside class="post-rail" aria-label="About this post">
         <p class="post-actions">
-          <a class="btn" href="https://www.linkedin.com/feed/update/urn:li:activity:7338497740550639616/" target="_blank" rel="noopener">Read on LinkedIn <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M7 17 17 7m0 0H9m8 0v8"/></svg></a>
+          <a class="btn" href="https://www.linkedin.com/feed/update/urn:li:activity:7338497740550639616/" target="_blank" rel="noopener noreferrer">Read on LinkedIn <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M7 17 17 7m0 0H9m8 0v8"/></svg></a>
           <a class="btn btn-quiet" href="./">All writing</a>
         </p>
       </aside>
     </div>
   </article>
   <nav class="post-nav" aria-label="More writing">
-    <a href="bangladesh-renewable-market.html"><img src="../assets/img/writing/bangladesh-renewable-market.jpg" alt="" width="112" height="112" loading="lazy"><span>Newer</span><strong>Bangladesh opens its renewable power market</strong></a>
-    <a class="next" href="ants-vs-humans.html"><img src="../assets/img/writing/ants-vs-humans.jpg" alt="" width="112" height="112" loading="lazy"><span>Older</span><strong>Ants vs humans: who solves problems better?</strong></a>
+    <a href="bangladesh-renewable-market.html"><img src="../assets/img/writing/bangladesh-renewable-market-480.webp" alt="" width="112" height="112" loading="lazy" decoding="async"><span>Newer</span><strong>Bangladesh opens its renewable power market</strong></a>
+    <a class="next" href="ants-vs-humans.html"><img src="../assets/img/writing/ants-vs-humans-480.webp" alt="" width="112" height="112" loading="lazy" decoding="async"><span>Older</span><strong>Ants vs humans: who solves problems better?</strong></a>
   </nav>
 </main>
 <footer class="foot">
@@ -77,7 +77,7 @@
     <ul><li>Sakib Hasan Jeebon</li><li>Sustainability and decarbonization</li></ul>
     <ul><li>Read</li><li><a href="../#about">About</a></li><li><a href="../#experience">Experience</a></li><li><a href="./">Writing</a></li></ul>
     <ul><li>More</li><li><a href="../#education">Education</a></li><li><a href="../#research">Research</a></li><li><a href="../#credentials">Credentials</a></li></ul>
-    <ul><li>Elsewhere</li><li><a href="https://www.linkedin.com/in/sakibjeebon" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="mailto:sakibjeebon@gmail.com">Email</a></li><li><a href="../">Back to the portfolio</a></li></ul>
+    <ul><li>Elsewhere</li><li><a href="https://www.linkedin.com/in/sakibjeebon" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="mailto:sakibjeebon@gmail.com">Email</a></li><li><a href="../">Back to the portfolio</a></li></ul>
   </div>
   <p class="legal"><span>© 2026 Sakib Hasan Jeebon</span><span>Plain HTML, CSS and JavaScript</span></p>
 </footer>

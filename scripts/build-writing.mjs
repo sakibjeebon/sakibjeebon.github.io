@@ -1,7 +1,7 @@
 // Generates writing/<slug>.html and writing/index.html from scripts/posts.mjs.
 // The pages share the portfolio's header, colour chapters, footer and script.
 // Usage: node scripts/build-writing.mjs
-import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { posts } from "./posts.mjs";
@@ -11,6 +11,15 @@ const out = join(root, "writing");
 mkdirSync(out, { recursive: true });
 
 const site = "https://sakibjeebon.github.io";
+const csp = readFileSync(join(root, "scripts/csp.txt"), "utf8").trim();
+// responsive webp variants sit next to the jpg: <slug>-480.webp (+ -960.webp when the source is wide enough)
+const webp = (img) => {
+  const s = img.replace(/\.jpg$/, "");
+  const dir = join(root, "assets/img/writing");
+  const base = "../assets/img/writing/" + s;
+  const extra = [960, ...Array.from({ length: 480 }, (_, i) => 959 - i)].find((w) => existsSync(join(dir, `${s}-${w}.webp`)));
+  return { src: `${base}-480.webp`, srcset: `${base}-480.webp 480w${extra ? `, ${base}-${extra}.webp ${extra}w` : ""}` };
+};
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const fmt = (p) => p.dateLabel || new Date(p.date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 const arrow = `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M5 12h14m0 0-6-6m6 6-6 6"/></svg>`;
@@ -20,6 +29,8 @@ const head = (title, desc, path, image, type = "article") => `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="${csp}">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}">
@@ -34,9 +45,7 @@ const head = (title, desc, path, image, type = "article") => `<!DOCTYPE html>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/style.css">
   <script>document.documentElement.classList.add("js")</script>
   <script defer src="../assets/js/main.js"></script>
@@ -63,7 +72,7 @@ const foot = `<footer class="foot">
     <ul><li>Sakib Hasan Jeebon</li><li>Sustainability and decarbonization</li></ul>
     <ul><li>Read</li><li><a href="../#about">About</a></li><li><a href="../#experience">Experience</a></li><li><a href="./">Writing</a></li></ul>
     <ul><li>More</li><li><a href="../#education">Education</a></li><li><a href="../#research">Research</a></li><li><a href="../#credentials">Credentials</a></li></ul>
-    <ul><li>Elsewhere</li><li><a href="https://www.linkedin.com/in/sakibjeebon" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="mailto:sakibjeebon@gmail.com">Email</a></li><li><a href="../">Back to the portfolio</a></li></ul>
+    <ul><li>Elsewhere</li><li><a href="https://www.linkedin.com/in/sakibjeebon" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="mailto:sakibjeebon@gmail.com">Email</a></li><li><a href="../">Back to the portfolio</a></li></ul>
   </div>
   <p class="legal"><span>© ${new Date().getFullYear()} Sakib Hasan Jeebon</span><span>Plain HTML, CSS and JavaScript</span></p>
 </footer>
@@ -92,7 +101,7 @@ posts.forEach((p, i) => {
         <h1 id="post-h" class="rise">${esc(p.title)}</h1>
         <p class="post-meta rise" style="--i:1"><time datetime="${p.date}">${fmt(p)}</time><span>First posted on LinkedIn</span></p>
       </div>
-      <figure class="post-figure rise" style="--i:2"><img src="../assets/img/writing/${p.image}" alt="${esc(p.alt)}"></figure>
+      <figure class="post-figure rise" style="--i:2"><img src="${webp(p.image).src}" srcset="${webp(p.image).srcset}" sizes="(max-width: 900px) 100vw, 42vw" alt="${esc(p.alt)}" width="${p.w || 1024}" height="${p.h || 1024}" fetchpriority="high" decoding="async"></figure>
     </div>
   </section>
   <article class="chapter c-white post-body-wrap">
@@ -102,15 +111,15 @@ posts.forEach((p, i) => {
       </div>
       <aside class="post-rail" aria-label="About this post">
         <p class="post-actions">
-          <a class="btn" href="${p.url}" target="_blank" rel="noopener">Read on LinkedIn ${ext}</a>
+          <a class="btn" href="${p.url}" target="_blank" rel="noopener noreferrer">Read on LinkedIn ${ext}</a>
           <a class="btn btn-quiet" href="./">All writing</a>
         </p>
       </aside>
     </div>
   </article>
   <nav class="post-nav" aria-label="More writing">
-    ${prev ? `<a href="${prev.slug}.html"><img src="../assets/img/writing/${prev.image}" alt="" width="112" height="112" loading="lazy"><span>Newer</span><strong>${esc(prev.title)}</strong></a>` : `<a href="./"><span>Writing</span><strong>All posts</strong></a>`}
-    ${next ? `<a class="next" href="${next.slug}.html"><img src="../assets/img/writing/${next.image}" alt="" width="112" height="112" loading="lazy"><span>Older</span><strong>${esc(next.title)}</strong></a>` : `<a class="next" href="../"><span>Back</span><strong>The portfolio</strong></a>`}
+    ${prev ? `<a href="${prev.slug}.html"><img src="${webp(prev.image).src}" alt="" width="112" height="112" loading="lazy" decoding="async"><span>Newer</span><strong>${esc(prev.title)}</strong></a>` : `<a href="./"><span>Writing</span><strong>All posts</strong></a>`}
+    ${next ? `<a class="next" href="${next.slug}.html"><img src="${webp(next.image).src}" alt="" width="112" height="112" loading="lazy" decoding="async"><span>Older</span><strong>${esc(next.title)}</strong></a>` : `<a class="next" href="../"><span>Back</span><strong>The portfolio</strong></a>`}
   </nav>
 </main>
 ` + foot;

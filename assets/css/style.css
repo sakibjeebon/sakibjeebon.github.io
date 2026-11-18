@@ -1,6 +1,15 @@
 /* Sakib Hasan Jeebon — portfolio. Vanilla CSS.
    Direction: colour chapters. Every section is a flat full-bleed field; one grid, one rhythm. */
 
+@font-face {
+  font-family: "Hanken Grotesk";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("../fonts/hanken-grotesk-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --white: #ffffff;
   --surface: #f5f5f5;
@@ -35,10 +44,11 @@ html { -webkit-text-size-adjust: 100%; scroll-padding-top: 4rem; }
 body {
   background: var(--white); color: var(--black);
   font-family: var(--font); font-weight: 400; font-size: var(--step-body); line-height: 1.5;
-  letter-spacing: -0.005em; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  letter-spacing: -0.005em; -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
 img, svg { display: block; max-width: 100%; }
+img { height: auto; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
 ::selection { background: var(--black); color: var(--mint); }
 :focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
@@ -49,7 +59,7 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em
 h1, h2, h3 { font-weight: 500; letter-spacing: -0.05em; line-height: 0.92; text-wrap: balance; }
 h2 { font-size: var(--step-head); }
 h3 { font-size: var(--step-lead); letter-spacing: -0.02em; line-height: 1.15; }
-p, li, dd { text-wrap: pretty; }
+p { text-wrap: pretty; }
 strong, b { font-weight: 500; }
 .lead { font-size: var(--step-lead); line-height: 1.35; letter-spacing: -0.015em; }
 .small { font-size: var(--step-small); }
@@ -281,13 +291,13 @@ strong, b { font-weight: 500; }
 @media (prefers-reduced-motion: no-preference) {
   .js .rise { opacity: 0; transform: translateY(28px); transition: opacity 700ms var(--ease-out), transform 850ms var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
   .js .rise.in { opacity: 1; transform: none; }
-  .js .hero h1 .line > span { transform: translateY(108%); animation: rise-line 1000ms var(--ease-out) 250ms forwards; }
-  .js .hero h1 .line + .line > span { animation-delay: 380ms; }
-  .js .hero-foot { opacity: 0; transform: translateY(14px); animation: fade-up 800ms var(--ease-out) 800ms forwards; }
-  .js .hero-photo { transform: translateY(14%); opacity: 0; animation: photo-in 1100ms var(--ease-out) 450ms forwards; }
-  .js .logo-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 900ms var(--ease-in-out) 150ms forwards; }
-  .js .logo-line:nth-child(2) { animation-delay: 450ms; }
-  .js .logo-line:nth-child(3) { animation-delay: 750ms; }
+  .js .hero h1 .line > span { transform: translateY(108%); animation: rise-line 700ms var(--ease-out) forwards; }
+  .js .hero h1 .line + .line > span { animation-delay: 70ms; }
+  .js .hero-foot { opacity: 0; transform: translateY(14px); animation: fade-up 600ms var(--ease-out) 250ms forwards; }
+  .js .hero-photo { transform: translateY(14%); opacity: 0; animation: photo-in 800ms var(--ease-out) 100ms forwards; }
+  .js .logo-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 700ms var(--ease-in-out) forwards; }
+  .js .logo-line:nth-child(2) { animation-delay: 250ms; }
+  .js .logo-line:nth-child(3) { animation-delay: 450ms; }
   .js .lanes .seg { transform: scaleX(0); }
   .js .lanes.in .seg { transform: scaleX(1); }
   .seg.live::after { animation: pulse 1.8s ease-in-out infinite; }

@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U='; style-src 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>What game theory teaches about cooperation · Sakib Hasan Jeebon</title>
   <meta name="description" content="The prisoner's dilemma, Tit for Tat, and why most wins come from working with others.">
@@ -16,9 +18,7 @@
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/style.css">
   <script>document.documentElement.classList.add("js")</script>
   <script defer src="../assets/js/main.js"></script>
@@ -46,7 +46,7 @@
         <h1 id="post-h" class="rise">What game theory teaches about cooperation</h1>
         <p class="post-meta rise" style="--i:1"><time datetime="2024-11-22">22 November 2024</time><span>First posted on LinkedIn</span></p>
       </div>
-      <figure class="post-figure rise" style="--i:2"><img src="../assets/img/writing/game-theory.jpg" alt="Title card: What game theory teaches us. Life's not a zero-sum game."></figure>
+      <figure class="post-figure rise" style="--i:2"><img src="../assets/img/writing/game-theory-480.webp" srcset="../assets/img/writing/game-theory-480.webp 480w, ../assets/img/writing/game-theory-960.webp 960w" sizes="(max-width: 900px) 100vw, 42vw" alt="Title card: What game theory teaches us. Life's not a zero-sum game." width="1200" height="1200" fetchpriority="high" decoding="async"></figure>
     </div>
   </section>
   <article class="chapter c-white post-body-wrap">
@@ -60,15 +60,15 @@
       </div>
       <aside class="post-rail" aria-label="About this post">
         <p class="post-actions">
-          <a class="btn" href="https://www.linkedin.com/feed/update/urn:li:activity:7265718168910725120/" target="_blank" rel="noopener">Read on LinkedIn <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M7 17 17 7m0 0H9m8 0v8"/></svg></a>
+          <a class="btn" href="https://www.linkedin.com/feed/update/urn:li:activity:7265718168910725120/" target="_blank" rel="noopener noreferrer">Read on LinkedIn <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M7 17 17 7m0 0H9m8 0v8"/></svg></a>
           <a class="btn btn-quiet" href="./">All writing</a>
         </p>
       </aside>
     </div>
   </article>
   <nav class="post-nav" aria-label="More writing">
-    <a href="surface-tension.html"><img src="../assets/img/writing/surface-tension.jpg" alt="" width="112" height="112" loading="lazy"><span>Newer</span><strong>A wasp, some water, and surface tension</strong></a>
-    <a class="next" href="candle-flame-in-space.html"><img src="../assets/img/writing/candle-flame-in-space.jpg" alt="" width="112" height="112" loading="lazy"><span>Older</span><strong>What a candle flame does in space</strong></a>
+    <a href="surface-tension.html"><img src="../assets/img/writing/surface-tension-480.webp" alt="" width="112" height="112" loading="lazy" decoding="async"><span>Newer</span><strong>A wasp, some water, and surface tension</strong></a>
+    <a class="next" href="candle-flame-in-space.html"><img src="../assets/img/writing/candle-flame-in-space-480.webp" alt="" width="112" height="112" loading="lazy" decoding="async"><span>Older</span><strong>What a candle flame does in space</strong></a>
   </nav>
 </main>
 <footer class="foot">
@@ -76,7 +76,7 @@
     <ul><li>Sakib Hasan Jeebon</li><li>Sustainability and decarbonization</li></ul>
     <ul><li>Read</li><li><a href="../#about">About</a></li><li><a href="../#experience">Experience</a></li><li><a href="./">Writing</a></li></ul>
     <ul><li>More</li><li><a href="../#education">Education</a></li><li><a href="../#research">Research</a></li><li><a href="../#credentials">Credentials</a></li></ul>
-    <ul><li>Elsewhere</li><li><a href="https://www.linkedin.com/in/sakibjeebon" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="mailto:sakibjeebon@gmail.com">Email</a></li><li><a href="../">Back to the portfolio</a></li></ul>
+    <ul><li>Elsewhere</li><li><a href="https://www.linkedin.com/in/sakibjeebon" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="mailto:sakibjeebon@gmail.com">Email</a></li><li><a href="../">Back to the portfolio</a></li></ul>
   </div>
   <p class="legal"><span>© 2026 Sakib Hasan Jeebon</span><span>Plain HTML, CSS and JavaScript</span></p>
 </footer>
